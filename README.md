@@ -1,66 +1,48 @@
-# PYTHON-PROJECT-Number-Gussing-
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+import random
 
-int main()
-{
-    int lower, upper, x, guess, count = 0, flag = 0;
-    int total_chances;
+name = input("What is your name? ")
 
-    // Taking Inputs
-    printf("Enter Lower bound: ");
-    scanf("%d", &lower);
+print("Good Luck ! ", name)
 
-    // Taking Inputs
-    printf("Enter Upper bound: ");
-    scanf("%d", &upper);
+words = ['rainbow', 'computer', 'science', 'programming',
+         'python', 'mathematics', 'player', 'condition',
+         'reverse', 'water', 'board', 'geeks']
 
-    // Seed the random number generator
-    srand(time(0));
+word = random.choice(words)
 
-    // Generating random number between the lower and upper
-    x = (rand() % (upper - lower + 1)) + lower;
-    total_chances
-        = (int)ceil(log(upper - lower + 1) / log(2));
+print("Guess the characters")
 
-    printf("\n\tYou've only %d chances to guess the "
-           "integer!\n\n",
-           total_chances);
+guesses = ''
+turns = 12
 
-    // for calculation of minimum number of guesses depends
-    // upon range
-    while (count < total_chances) {
-        count++;
+while turns > 0:
 
-        // Taking guessing number as input
-        printf("Guess a number: ");
-        scanf("%d", &guess);
+    failed = 0
 
-        // Condition testing
-        if (x == guess) {
-            printf(
-                "Congratulations you did it in %d try!\n",
-                count);
-            // Once guessed, loop will break
-            flag = 1;
-            break;
-        }
-        else if (x > guess) {
-            printf("You guessed too small!\n");
-        }
-        else if (x < guess) {
-            printf("You guessed too high!\n");
-        }
-    }
+    for char in word:
 
-    // If Guessing is more than required guesses, shows this
-    // output.
-    if (!flag) {
-        printf("\nThe number is %d\n", x);
-        printf("\tBetter Luck Next time!\n");
-    }
+        if char in guesses:
+            print(char, end=" ")
 
-    return 0;
-}
+        else:
+            print("_")
+            failed += 1
+
+    if failed == 0:
+        print("You Win")
+        print("The word is: ", word)
+        break
+
+    print()
+    guess = input("guess a character:")
+
+    guesses += guess
+
+    if guess not in word:
+
+        turns -= 1
+        print("Wrong")
+        print("You have", + turns, 'more guesses')
+
+        if turns == 0:
+            print("You Loose")
